@@ -1,0 +1,44 @@
+version: '3.9'
+
+services:
+  jenkins-docker:
+    image: docker:dind
+    restart: unless-stopped
+    privileged: true
+    command: --storage-driver=overlay2
+    networks: 
+      jenkins:
+        aliases: 
+          - docker
+    environment: 
+      DOCKER_TLS_CERTDIR: /certs
+    volum
+      - ./jenkins-docker-certs:/certs/client
+      - ./jenkins-data:/var/jenkins_home
+    ports:
+      - '2376:2376'
+
+  jenkins:
+    image: jenkins-blueocean
+    depends_on: 
+      - jenkins-docker
+    build:
+      context: .
+      dockerfile: ./jenkins-bo.Dockerfile
+    restart: unless-stopped
+    environment:
+      DOCKER_HOST: tcp://docker:2376
+      DOCKER_CERT_PATH: /certs/client
+      DOCKER_TLS_VERIFY: 1
+    ports:
+      - '8080:8080'
+      - '50000:50000'
+    volumes: 
+      - ./jenkins-data:/var/jenkins_home
+      - ./jenkins-docker-certs:/certs/client:ro
+      - /var/run/docker.sock:/var/run/docker.sock
+    networks: 
+      - jenkins
+
+networks:
+  jenkins:

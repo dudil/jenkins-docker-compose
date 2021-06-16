@@ -1,0 +1,4 @@
+jenkins-data/*
+jenkins-docker-certs/*
+*.DS_Store
+*.env

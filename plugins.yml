@@ -1,0 +1,5 @@
+plugins:
+  - artifactId: git
+  - artifactId: script-security
+  - artifactId: blueocean
+  - artifactId: docker-workflow
