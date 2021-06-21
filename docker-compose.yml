@@ -1,4 +1,4 @@
-version: '3.9'
+version: '3'
 
 services:
   jenkins-docker:
@@ -12,7 +12,7 @@ services:
           - docker
     environment: 
       DOCKER_TLS_CERTDIR: /certs
-    volum
+    volumes:
       - ./jenkins-docker-certs:/certs/client
       - ./jenkins-data:/var/jenkins_home
     ports:
