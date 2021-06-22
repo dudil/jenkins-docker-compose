@@ -1,5 +1,4 @@
 plugins:
-  - artifactId: configuration-as-code
   - artifactId: git
   - artifactId: script-security
   - artifactId: blueocean
