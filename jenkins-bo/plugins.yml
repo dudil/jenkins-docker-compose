@@ -1,5 +1,9 @@
 plugins:
+  - artifactId: configuration-as-code
   - artifactId: git
   - artifactId: script-security
   - artifactId: blueocean
+  - artifactId: docker-commons
   - artifactId: docker-workflow
+  - artifactId: sonar
+
