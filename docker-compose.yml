@@ -37,7 +37,7 @@ services:
       - ./vols/jenkins-data:/var/jenkins_home
       - ./vols/jenkins-docker-certs:/certs/client:ro
       - /var/run/docker.sock:/var/run/docker.sock
-      - ${HOST_DEV_HOME}:/var/dev_home:ro
+      # - ${HOST_DEV_HOME}:/var/dev_home:ro
     networks: 
       - jenkins
 

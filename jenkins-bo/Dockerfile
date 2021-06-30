@@ -17,3 +17,6 @@ USER jenkins
 COPY --chown=jenkins:jenkins plugins.yml /usr/share/jenkins/ref/plugins.yml
 RUN jenkins-plugin-cli --plugin-file /usr/share/jenkins/ref/plugins.yml
 RUN echo 2.0 > /usr/share/jenkins/ref/jenkins.install.UpgradeWizard.state
+
+COPY --chown=jenkins:jenkins jenkins-config.yaml /var/casc_configs/jenkins-config.yaml
+ENV  CASC_JENKINS_CONFIG=/var/casc_configs/jenkins-config.yaml
