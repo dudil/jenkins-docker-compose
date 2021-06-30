@@ -1,6 +1,22 @@
 version: '3'
 
 services:
+  sonarqube:
+    image: sonarqube:lts-community
+    restart: unless-stopped
+    environment: 
+      SONAR_ES_BOOTSTRAP_CHECKS_DISABLE: 'true'
+      SONAR_TELEMETRY_ENABLE: 'false'
+    volumes: 
+      - ./vols/sonarqube_data:/opt/sonarqube/data
+      - ./vols/sonarqube_extensions:/opt/sonarqube/extensions
+      - ./vols/sonarqube_logs:/opt/sonarqube/logs
+      - ./vols/sonarqube_temp:/opt/sonarqube/temp
+    ports: 
+      - '9000:9000'
+    networks: 
+      - jenkins
+  
   docker-agent:
     image: docker:dind
     depends_on: 
@@ -33,9 +49,11 @@ services:
     ports:
       - '8080:8080'
       - '50000:50000'
+    user: jenkins:jenkins
     volumes: 
       - ./vols/jenkins-data:/var/jenkins_home
       - ./vols/jenkins-docker-certs:/certs/client:ro
+      - ./jenkins-bo/jenkins-config.yaml:/var/casc_configs/jenkins-config.yaml:ro
       - /var/run/docker.sock:/var/run/docker.sock
       # - ${HOST_DEV_HOME}:/var/dev_home:ro
     networks: 
