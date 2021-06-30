@@ -3,6 +3,8 @@ version: '3'
 services:
   docker-agent:
     image: docker:dind
+    depends_on: 
+      - jenkins-bo
     restart: unless-stopped
     privileged: true
     command: --storage-driver=overlay2
@@ -20,8 +22,6 @@ services:
 
   jenkins-bo:
     image: jenkins-blueocean
-    depends_on: 
-      - docker-agent
     build:
       context: ./jenkins-bo
       dockerfile: Dockerfile

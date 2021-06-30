@@ -12,6 +12,9 @@ RUN add-apt-repository \
        $(lsb_release -cs) stable"
 RUN apt-get update && apt-get install -y docker-ce-cli
 
+RUN mkdir -p /var/jenkins_home
+RUN chown -R jenkins:jenkins /var/jenkins_home
+
 USER jenkins
 
 COPY --chown=jenkins:jenkins plugins.yml /usr/share/jenkins/ref/plugins.yml
